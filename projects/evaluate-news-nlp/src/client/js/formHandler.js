@@ -4,25 +4,36 @@ function handleSubmit(event) {
     // check what text was put into the form field
     let userURL = document.getElementById('name').value
     // Client.checkForName(formText)
+    if(Client.correctURL(userURL)){
 
-    console.log("::: Form Submitted :::")
+        console.log("::: Form Submitted :::")
 
-    //make api request (POST Request)
-    // fetch('http://localhost:8081/test')
+        
 
-    // .then(res => res.json())
-    
-    // .then(function(res) {
-    //     document.getElementById('results').innerHTML = res.message
-    // })
-    
-    
-    postData('http://localhost:8081/api', { url: userURL} )
+        
+        // fetch('http://localhost:8081/test')
 
-        .then(data => {
-        console.log(data); // JSON data parsed by `data.json()` call
-        document.getElementById('results').innerHTML = data.confidence
-        });
+        // .then(res => res.json())
+        
+        // .then(function(res) {
+        //     document.getElementById('results').innerHTML = res.message
+        // })
+        
+        //make api request (POST Request)
+        postData('http://localhost:8081/api', { url: userURL} )
+
+            .then(data => {
+            console.log("===============");
+            console.log(data); // JSON data parsed by `data.json()` call
+            document.getElementById('results').innerHTML =
+            `Agreement: ${data.agreement} <br></br>
+            Confidence: ${data.confidence}   <br></br>
+            Subjectivity: ${data.subjectivity} <br></br>
+            Irony: ${data.irony} <br></br>`
+            });
+    }else{
+        alert("Invalid url! Please check it again")
+    }
 
 }
 

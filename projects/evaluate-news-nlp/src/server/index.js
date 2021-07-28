@@ -7,6 +7,9 @@ const mockAPIResponse = require('./mockAPI.js')
 var bodyParser = require('body-parser')
 var cors = require('cors')
 
+const fetch = require('node-fetch');
+
+const baseURL = 'https://api.meaningcloud.com/sentiment-2.1?'
 const apiKey = process.env.API_KEY
 
 const app = express()
@@ -34,5 +37,17 @@ app.listen(8081, function () {
 
 app.get('/test', function (req, res) {
     res.send(mockAPIResponse)
+})
+
+app.post('/api', async function(req, res) {
+    let userInput = req.body.url;
+
+    const apiURL = `${baseURL}key=${apiKey}&url=${userInput}&lang=en`
+
+    console.log('URL:', userInput);
+    const response = await fetch(apiURL)
+    const mcData = await response.json()
+    console.log(mcData)
+    res.send(mcData)
 })
 
