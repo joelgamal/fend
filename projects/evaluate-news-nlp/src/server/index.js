@@ -46,8 +46,8 @@ app.post('/api', async function(req, res) {
 
     console.log('URL:', userInput);
     const response = await fetch(apiURL)
-    const mcData = await response.json()
-    console.log(mcData)
-    res.send(mcData)
+    const data = await response.json()
+    console.log(data)
+    res.send(data)
 })
 
